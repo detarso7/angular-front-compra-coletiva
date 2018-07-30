@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {ActivatedRoute} from "@angular/router"
+import {ActivatedRoute, Params} from "@angular/router"
 import {OfertasServico} from "../ofertas.service"
 import {Oferta} from "../shared/oferta.model"
 import { interval } from 'rxjs';
@@ -18,10 +18,17 @@ export class OfertaComponent implements OnInit, OnDestroy {
   constructor(private router: ActivatedRoute, private ofertaServico:OfertasServico) { }
 
   ngOnInit() {
-    this.ofertaServico.getOfertaPorId(this.router.snapshot.params["id"])
-    .then((oferta)=>{
-      this.ofertas = oferta
+
+    this.router.params.subscribe((parametro: Params)=>{
+
+      this.ofertaServico.getOfertaPorId(parametro.id)
+      .then((oferta)=>{
+        this.ofertas = oferta
+      })
+
     })
+
+
   
     /*let tempo = interval(1500)
     tempo.subscribe(n=>console.log)*/

@@ -14,7 +14,6 @@ import { switchMap, debounceTime, distinctUntilChanged, catchError } from 'rxjs/
 export class TopoComponent implements OnInit {
 
   public oferta:Observable<Oferta[]>
-  public oferta2:Oferta[]
   private subjectPesquisa: Subject<string> = new Subject<string>() //Cria um novo observable
 
   constructor(private ofertaServico:OfertasServico) { }
@@ -37,17 +36,9 @@ export class TopoComponent implements OnInit {
         return this.ofertaServico.pesquisaOferta(termo) // envia os dados para o service fazer a requizição ao server e retorna um Oferta[]
     }),
       catchError((err: any)=>{
-        console.log(err)
         return of<Oferta[]>([])
       })
   )
-
-    //Trabalhando o retorno da requisição a API
-    this.oferta.subscribe((ofertas: Oferta[])=> {
-     console.log(ofertas)
-     this.oferta2 = ofertas
-    
-    })
 
   }
 
@@ -57,7 +48,19 @@ export class TopoComponent implements OnInit {
     
   }
 
+  limparPesquisa(): void{
+    this.subjectPesquisa.next("")
+    
+  }
+
 }
+
+    /*Trabalhando o retorno da requisição a API
+    this.oferta.subscribe((ofertas: Oferta[])=> {
+      console.log(ofertas)
+      this.oferta2 = ofertas
+     
+     })*/
 
 /*
     this.oferta = this.ofertaServico.pesquisaOferta(termoDaBusca)
