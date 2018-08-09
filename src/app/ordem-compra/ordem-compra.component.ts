@@ -11,6 +11,7 @@ public endereco:string = ""
 public numero:string = ""
 public complemento:string = ""
 public formaPagamento:string = ""
+public formEstado:String = "disabled"
 
 public enderecoValido:boolean
 public numeroValido:boolean
@@ -38,6 +39,7 @@ this.enderecoPrimitivo = false
    }else{
      this.enderecoValido = false
    }
+   this.habilitaForm()
   }
 
 
@@ -51,6 +53,7 @@ this.enderecoPrimitivo = false
     }else{
       this.numeroValido = false
     }
+    this.habilitaForm()
   }
 
   public atualizarComplemento(complemento:string):void{
@@ -62,19 +65,29 @@ this.complementoPrimitivo = false
     if(complemento.length > 0){
       this.complementoValido = true
     }
+    this.habilitaForm()
   }
 
   public atualizarSelected(selected:string):void{
     this.formaPagamento = selected
     //console.log(selected)
 
-this.selectPrimitivo = false
+  this.selectPrimitivo = false
 
-    if(this.formaPagamento){
-      this.selectedValido = false
-    }else{
-      this.selectedValido = true
+      if(this.formaPagamento == ""){
+        this.selectedValido = false
+      }else{
+        this.selectedValido = true
+      }
+      this.habilitaForm()
     }
-  }
+
+    public habilitaForm(): void{
+      if( this.endereco && this.numero && this.formaPagamento){
+        this.formEstado = ""
+      }else{
+        this.formEstado = "disabled"
+      }
+    }
 
 }

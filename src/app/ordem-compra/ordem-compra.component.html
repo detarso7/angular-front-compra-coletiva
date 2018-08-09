@@ -79,7 +79,19 @@
           #inputEndereco
           (input)="atualizarEndereco(inputEndereco.value)"
           >
-          <div class="invalid-feedback">Endereço inválido</div>
+
+          <div *ngIf="enderecoPrimitivo == false">
+
+            <div *ngIf="enderecoValido; else msgEnderecoValido">
+                <small class="form-text text-success">Ok</small>
+            </div>
+
+            <ng-template #msgEnderecoValido>
+                <small class="form-text text-muted">Endedeço Inválido</small>
+            </ng-template>
+
+          </div>
+
         </div>
 
         <div class="form-group col-md-2">
@@ -93,7 +105,19 @@
           #inputNumero
           (input)="atualizarNumero(inputNumero.value)"
           >
-          <small class="form-text text-muted">Ok</small>
+
+          <div *ngIf="numeroPrimitivo == false">
+
+            <div *ngIf="numeroValido; else msgNumeroValido">
+                <small class="form-text text-success">Ok</small>
+            </div>
+
+            <ng-template #msgNumeroValido>
+                <small class="form-text text-muted">Número Inválido</small>
+            </ng-template>
+
+          </div>
+
         </div>
 
         <div class="form-group col-md-4">
@@ -105,6 +129,14 @@
           #inputComplemento
           (input)="atualizarComplemento(inputComplemento.value)"
           >
+          <div *ngIf="complementoPrimitivo == false">
+
+              <div *ngIf="selectedValido">
+                  <small class="form-text text-success">Ok</small>
+              </div>
+
+        </div>
+
         </div>
 
       </div>
@@ -125,12 +157,22 @@
             <option value="Débito" selected="{{formaPagamento == 'Débito' ? 'selected' : ''}}">Débito</option>
           </select>
 
-          <div class="invalid-feedback">Selecione uma forma de pagamento</div>
+          <div *ngIf="selectPrimitivo == false">
+
+                <div *ngIf="selectedValido; else msgSelctVlaido">
+                    <small class="form-text text-success">Ok</small>
+                </div>
+                <ng-template #msgSelctVlaido>
+                    <small class="form-text text-danger">Selecione uma forma de pagamento</small>
+                </ng-template>
+
+          </div>
+
         </div>
       </div>
 
       <hr />
-      <button type="submit" class="btn btn-primary btn-lg">Cofirmar compra</button>
+      <button type="submit" class="btn btn-primary btn-lg" [disabled]="formEstado">Cofirmar compra</button>
     </form>
   </div>
 </div>
