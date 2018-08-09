@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { OrdemDeCompraService } from '../ordem-compra.service';
+import { Pedido } from '../shared/pedido';
 
 @Component({
   selector: 'app-ordem-compra',
   templateUrl: './ordem-compra.component.html',
-  styleUrls: ['./ordem-compra.component.css']
+  styleUrls: ['./ordem-compra.component.css'],
+  providers:[ OrdemDeCompraService]
 })
 export class OrdemCompraComponent implements OnInit {
+
+public pedido: Pedido = new Pedido("", "", "", "")
 
 public endereco:string = ""
 public numero:string = ""
@@ -23,9 +28,10 @@ public numeroPrimitivo:boolean = true
 public complementoPrimitivo:boolean = true
 public selectPrimitivo:boolean = true
 
-  constructor() { }
+  constructor(public ordemCompraService:  OrdemDeCompraService) { }
 
   ngOnInit() {
+    //this.ordemCompraService.efetivarCompra()
   }
 
   public atualizarEndereco(endereco:string):void{
@@ -88,6 +94,17 @@ this.complementoPrimitivo = false
       }else{
         this.formEstado = "disabled"
       }
+    }
+
+    public confirmarCompra(){
+
+      this.pedido.endereco = this.endereco
+      this.pedido.numero = this.numero
+      this.pedido.complemento = this.complemento
+      this.pedido.formaPagamento = this.formaPagamento
+
+      this.ordemCompraService.efetivarCompra(this.pedido)
+
     }
 
 }
