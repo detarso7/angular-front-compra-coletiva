@@ -6,9 +6,11 @@ import { Pedido } from '../shared/pedido';
   selector: 'app-ordem-compra',
   templateUrl: './ordem-compra.component.html',
   styleUrls: ['./ordem-compra.component.css'],
-  providers:[ OrdemDeCompraService]
+  providers:[OrdemDeCompraService]
 })
 export class OrdemCompraComponent implements OnInit {
+
+public idPedidoCompra:number
 
 public pedido: Pedido = new Pedido("", "", "", "")
 
@@ -102,9 +104,9 @@ this.complementoPrimitivo = false
       this.pedido.numero = this.numero
       this.pedido.complemento = this.complemento
       this.pedido.formaPagamento = this.formaPagamento
-
+        console.log(this.pedido)
       this.ordemCompraService.efetivarCompra(this.pedido)
+      .subscribe((idPedido:number)=>this.idPedidoCompra = idPedido)
 
     }
-
 }
