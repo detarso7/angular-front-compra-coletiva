@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import {Http, RequestOptions, Headers, Response} from "@angular/http";
 import { Observable } from "rxjs";
-import {URL_API_RAIZ} from "../app/app.api";
-import { Pedido } from "./shared/pedido";
+import {URL_API_RAIZ} from "./app.api";
+import { Pedido } from "./shared/pedido.model";
 import { map } from "rxjs/operators";
 
 @Injectable()
