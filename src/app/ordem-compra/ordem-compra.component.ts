@@ -55,10 +55,14 @@ public confirmarCompra():void{
         this.formulario.value.endereco,
         this.formulario.value.numero,
         this.formulario.value.complemento,
-        this.formulario.value.formaPagamento
+        this.formulario.value.formaPagamento,
+        this.itemCarrinhoServico.exibirItens()
       )
       this.ordemCompraService.efetivarCompra(pedido)
-      .subscribe((idPedido: any) => this.idPedidoCompra = idPedido)
+      .subscribe((idPedido: any) => {
+        this.idPedidoCompra = idPedido
+      this.itemCarrinhoServico.limparCarrinho()
+      })
       
     }
   }

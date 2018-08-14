@@ -62,5 +62,9 @@ export class ItemCarrinhoServico{
 
     }
 
+    public limparCarrinho(){
+        this.itens = []
+    }
+
 }
 
